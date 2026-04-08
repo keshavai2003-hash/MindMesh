@@ -1,4 +1,4 @@
-# MindMesh
+#  MindMesh
 
 **MindMesh** is a community-driven platform where developers can share ideas, create discussions, and grow knowledge together.
 
@@ -7,11 +7,11 @@
 ##  Features
 
 * 👤 User Authentication (Sign up / Sign in)
-* 🔐 Admin Panel with special access
+* 🔐 Admin Panel with secure access
 * 📝 Create, edit, and delete posts
-* 💬 Comment system on posts
+* 💬 Comment system
 * 👍 Like / 👎 Dislike functionality
-* 🧑‍💻 Guest access (browse without login)
+* 🧑‍💻 Guest browsing mode
 * 🏷️ Category-based posts
 * 🎨 Clean and responsive UI
 
@@ -22,7 +22,7 @@
 * **Backend:** Flask (Python)
 * **Database:** MySQL
 * **Frontend:** HTML, CSS, JavaScript
-* **Authentication:** Secure password hashing
+* **Authentication:** Password hashing (Werkzeug)
 * **Environment Management:** dotenv
 
 ---
@@ -33,6 +33,8 @@
 MindMesh/
 │
 ├── app.py
+├── schema.sql
+├── requirements.txt
 ├── .env.example
 ├── .gitignore
 │
@@ -57,27 +59,37 @@ MindMesh/
 
 ##  Setup Instructions
 
-1. Clone the repository:
+### 1. Clone the repository
 
 ```
 git clone https://github.com/keshavai2003-hash/MindMesh.git
-```
-
-2. Navigate to the project:
-
-```
 cd MindMesh
 ```
 
-3. Create a virtual environment and activate it
+---
 
-4. Install dependencies:
+### 2. Install dependencies
 
 ```
 pip install -r requirements.txt
 ```
 
-5. Create a `.env` file based on `.env.example`:
+---
+
+### 3. Setup Database
+
+1. Create a MySQL database (e.g. `itt`)
+2. Import the schema:
+
+```
+SOURCE schema.sql;
+```
+
+---
+
+### 4. Configure Environment Variables
+
+Create a `.env` file:
 
 ```
 SECRET_KEY=your-secret-key
@@ -88,7 +100,9 @@ MYSQL_DB=itt
 DEBUG=True
 ```
 
-6. Run the app:
+---
+
+### 5. Run the application
 
 ```
 python app.py
@@ -98,27 +112,27 @@ python app.py
 
 ##  Future Improvements
 
-* 🔍 Search and filter posts
-* 🖼️ Image upload support
-* 📄 Pagination for posts
+* 🔍 Search & filter posts
 * 👤 User profile pages
+* 🖼️ Image uploads
+* 📄 Pagination
 * 🌐 Deployment (Render / Railway)
 
 ---
 
 ##  Contributing
 
-Contributions are welcome! Feel free to fork the repo and submit a pull request.
+Feel free to fork this repo and submit pull requests.
 
 ---
 
 ##  Author
 
 **Keshav**
-Build by using Flask
+Built by keshav
 
 ---
 
-## ⭐ Show your support
+##  Support
 
 If you like this project, give it a ⭐ on GitHub!
