@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guest Access | IT Blogs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" href="{{ url_for('index') }}">IT<span>Blogs</span></a>
+    <div class="navbar-links">
+        <a href="{{ url_for('sign_in') }}">Sign In</a>
+        <a href="{{ url_for('sign_up') }}" class="btn btn-primary">Sign Up</a>
+    </div>
+</nav>
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h1>Continue as Guest</h1>
+        <p class="subtitle">Enter your name to browse posts</p>
+
+        {% if msg %}
+            <div class="msg">{{ msg }}</div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" name="guest_name" placeholder="e.g. John" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;margin-top:0.5rem;">Browse Posts</button>
+        </form>
+
+        <p class="switch"><a href="{{ url_for('index') }}">← Back to home</a></p>
+    </div>
+</div>
+
+<footer class="footer">&copy; 2025 ITBlogs made by keshav</footer>
+</body>
+</html>

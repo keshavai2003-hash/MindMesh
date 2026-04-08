@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Comment | IT Blogs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" href="{{ url_for('index') }}">IT<span>Blogs</span></a>
+    <div class="navbar-links">
+        <a href="{{ url_for('home') }}">All Posts</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</nav>
+
+<div class="page-wrapper">
+    <div class="form-card">
+        <h1>Edit Comment</h1>
+        <p class="subtitle">Update the comment below</p>
+
+        <form method="POST">
+            <div class="form-group">
+                <label>Comment</label>
+                <textarea name="comment" rows="5" required>{{ comment.comment }}</textarea>
+            </div>
+            <input type="hidden" name="redirect_to" value="{{ url_for('view_post', post_id=comment.post_id) }}">
+            <div style="display:flex;gap:1rem;align-items:center;">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a href="{{ url_for('view_post', post_id=comment.post_id) }}" style="color:var(--text-muted);font-size:0.9rem;">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer class="footer">&copy; 2025 ITBlogs made by keshav </footer>
+</body>
+</html>

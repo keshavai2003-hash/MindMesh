@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | IT Blogs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" href="{{ url_for('index') }}">IT<span>Blogs</span></a>
+    <div class="navbar-links">
+        <a href="{{ url_for('sign_up') }}" class="btn btn-primary">Sign Up</a>
+    </div>
+</nav>
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h1>Welcome back</h1>
+        <p class="subtitle">Sign in to your account</p>
+
+        {% if success %}
+            <div class="msg success">{{ success }}</div>
+        {% endif %}
+        {% if msg %}
+            <div class="msg">{{ msg }}</div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;margin-top:0.5rem;">Sign In</button>
+        </form>
+
+        <p class="switch">Don't have an account? <a href="{{ url_for('sign_up') }}">Create one</a></p>
+        <p class="switch"><a href="{{ url_for('guest') }}">Continue as Guest →</a></p>
+        <p class="switch" style="font-size:0.8rem;margin-top:0.5rem;"><a href="{{ url_for('admin_login') }}" style="color:var(--text-muted);">Admin Login</a></p>
+    </div>
+</div>
+
+<footer class="footer">&copy; 2025 ITBlogs</footer>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Blogs — Learn, Build, Grow</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <a class="navbar-brand" href="{{ url_for('index') }}">IT<span>Blogs</span></a>
+    <div class="navbar-links">
+        {% if session.get('user_id') %}
+            <a href="{{ url_for('home') }}">All Posts</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('sign_in') }}">Sign In</a>
+            <a href="{{ url_for('sign_up') }}" class="btn btn-primary">Sign Up</a>
+            <a href="{{ url_for('guest') }}">Guest</a>
+        {% endif %}
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+    <h1>Welcome to IT Blogs</h1>
+    <p>A community for developers and IT enthusiasts to read, write, and grow together.</p>
+    <div class="hero-btns">
+        <a href="{{ url_for('sign_up') }}" class="btn btn-white">Get Started</a>
+        <a href="{{ url_for('guest') }}" class="btn btn-ghost">Browse as Guest</a>
+    </div>
+</section>
+
+<!-- Features -->
+<section class="features">
+    <div class="feature-card">
+        <div class="feature-icon">📰</div>
+        <h3>Tech Articles</h3>
+        <p>Read beginner-friendly IT and programming blogs written by the community.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">🐍</div>
+        <h3>Python & Flask</h3>
+        <p>Backend tutorials with real-world projects and step-by-step explanations.</p>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">🚀</div>
+        <h3>Career Growth</h3>
+        <p>Guidance for internships, jobs, and building skills that matter.</p>
+    </div>
+</section>
+
+<!-- Contact -->
+<section class="contact-section">
+    <div class="contact-inner">
+        <h2>Get in touch</h2>
+        <p>Have a suggestion or feedback? We'd love to hear from you.</p>
+        {% if request.args.get('contacted') %}
+            <div class="msg success">Thanks! Your message was received.</div>
+        {% endif %}
+        <form method="POST" action="{{ url_for('contact') }}" class="contact-form">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+                <label>Message</label>
+                <textarea name="message" rows="4" placeholder="Your message..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Send Message</button>
+        </form>
+    </div>
+</section>
+
+<footer class="footer">
+    &copy; 2025 ITBlogs. Built by keshav with ❤️
+</footer>
+
+</body>
+</html>

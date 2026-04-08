@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | IT Blogs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" href="{{ url_for('index') }}">IT<span>Blogs</span></a>
+    <div class="navbar-links">
+        <a href="{{ url_for('sign_in') }}">Sign In</a>
+    </div>
+</nav>
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h1>Create your account</h1>
+        <p class="subtitle">Join IT Blogs to start posting</p>
+
+        {% if msg %}
+            <div class="msg">{{ msg }}</div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" placeholder="Your full name" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Min 6 characters" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;margin-top:0.5rem;">Create Account</button>
+        </form>
+
+        <p class="switch">Already have an account? <a href="{{ url_for('sign_in') }}">Sign in</a></p>
+    </div>
+</div>
+
+<footer class="footer">&copy; 2025 ITBlogs made by keshav</footer>
+</body>
+</html>

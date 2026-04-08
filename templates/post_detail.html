@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} | IT Blogs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" href="{{ url_for('index') }}">IT<span>Blogs</span></a>
+    <div class="navbar-links">
+        <a href="{{ url_for('home') }}">All Posts</a>
+        {% if session.get('user_id') %}
+            <a href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href="{{ url_for('sign_in') }}">Sign In</a>
+        {% endif %}
+    </div>
+</nav>
+
+<div class="page-wrapper">
+    <div class="post-detail-card">
+
+        <h1 class="post-title">{{ post.title }}</h1>
+
+        <div class="post-meta">
+            <span>By <strong>{{ post.author }}</strong></span>
+            <span class="badge">{{ post.category }}</span>
+        </div>
+
+        {% if session.get('role') == 'admin' %}
+        <div class="admin-actions">
+            <span>Admin:</span>
+            <a href="{{ url_for('edit_post', post_id=post.id) }}" class="btn btn-outline btn-sm">✏️ Edit Post</a>
+            <form action="{{ url_for('delete_post', post_id=post.id) }}" method="post" style="display:inline"
+                  onsubmit="return confirm('Delete this post permanently?')">
+                <button type="submit" class="btn btn-danger btn-sm">🗑 Delete Post</button>
+            </form>
+        </div>
+        {% endif %}
+
+        <hr class="divider">
+
+        <div class="post-content">{{ post.content }}</div>
+
+        <hr class="divider">
+
+        <div class="reactions">
+            {% if session.get('user_id') %}
+            <form action="{{ url_for('like_post', post_id=post.id) }}" method="post">
+                <button type="submit" class="reaction-btn">👍 {{ post.likes }}</button>
+            </form>
+            <form action="{{ url_for('dislike_post', post_id=post.id) }}" method="post">
+                <button type="submit" class="reaction-btn">👎 {{ post.dislikes }}</button>
+            </form>
+            {% else %}
+            <button class="reaction-btn" disabled title="Sign in to react">👍 {{ post.likes }}</button>
+            <button class="reaction-btn" disabled title="Sign in to react">👎 {{ post.dislikes }}</button>
+            {% endif %}
+        </div>
+        {% if not session.get('user_id') %}
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:1.2rem;">
+            <a href="{{ url_for('sign_in') }}">Sign in</a> to like or dislike posts.
+        </p>
+        {% endif %}
+
+        <!-- Comments -->
+        <div class="comments-section">
+            <h3>Comments ({{ comments|length }})</h3>
+
+            {% for c in comments %}
+            <div class="comment-item">
+                <div class="comment-author">{{ c.author }}</div>
+                <div class="comment-text">{{ c.comment }}</div>
+                {% if session.get('role') == 'admin' %}
+                <div class="comment-admin">
+                    <a href="{{ url_for('edit_comment', comment_id=c.id) }}" class="btn btn-outline btn-sm">Edit</a>
+                    <form action="{{ url_for('delete_comment', comment_id=c.id) }}" method="post" style="display:inline"
+                          onsubmit="return confirm('Delete this comment?')">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+            {% else %}
+                <p style="color:var(--text-muted);font-size:0.9rem;">No comments yet. Be the first!</p>
+            {% endfor %}
+
+            {% if session.get('user_id') %}
+            <form action="{{ url_for('comment_post', post_id=post.id) }}" method="post" class="comment-form">
+                <div class="form-group">
+                    <label>Add a comment</label>
+                    <textarea name="comment" placeholder="Write your comment..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Post Comment</button>
+            </form>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div style="margin-top:1.5rem;">
+        <a href="{{ url_for('home') }}" style="color:var(--text-muted);font-size:0.9rem;">← Back to all posts</a>
+    </div>
+</div>
+
+<footer class="footer">&copy; 2025 ITBlogs made by keshav</footer>
+</body>
+</html>

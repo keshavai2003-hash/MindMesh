@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post | IT Blogs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="navbar-brand" href="{{ url_for('index') }}">IT<span>Blogs</span></a>
+    <div class="navbar-links">
+        <a href="{{ url_for('home') }}">All Posts</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+</nav>
+
+<div class="page-wrapper">
+    <div class="form-card">
+        <h1>Create a New Post</h1>
+        <p class="subtitle">Share your knowledge with the community</p>
+
+        {% if msg %}
+            <div class="msg">{{ msg }}</div>
+        {% endif %}
+
+        <form method="POST">
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" name="title" placeholder="Post title" required>
+            </div>
+            <div class="form-group">
+                <label>Content</label>
+                <textarea name="content" rows="9" placeholder="Write your post here..." required></textarea>
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <select name="category">
+                    <option value="">Select existing category</option>
+                    {% for cat in categories %}
+                        <option value="{{ cat }}">{{ cat }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="or-divider">OR</div>
+            <div class="form-group">
+                <label>Create New Category</label>
+                <input type="text" name="new_category" placeholder="e.g. DevOps">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Publish Post</button>
+        </form>
+
+        <p style="margin-top:1rem;font-size:0.88rem;text-align:center;">
+            <a href="{{ url_for('home') }}" style="color:var(--text-muted);">← Cancel</a>
+        </p>
+    </div>
+</div>
+
+<footer class="footer">&copy; 2025 ITBlogs made by keshav</footer>
+</body>
+</html> 
