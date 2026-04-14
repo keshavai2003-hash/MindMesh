@@ -36,7 +36,7 @@ def guest():
         return render_template('guest.html', msg="Please enter a name")
     return render_template('guest.html')
 
-# FIX 1 + 4 + 7: hashed password, input validation, guest session cleared
+# FIX : hashed password, input validation, guest session cleared
 @app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
     session.clear()
@@ -46,7 +46,7 @@ def sign_up():
         email    = request.form.get('email', '').strip()
         password = request.form.get('password', '').strip()
 
-        # FIX 7: basic input validation
+        # FIX : basic input validation
         if len(name) < 2:
             return render_template('sign_up.html', msg="Name must be at least 2 characters.")
         if len(password) < 6:
@@ -58,7 +58,7 @@ def sign_up():
             cursor.close()
             return render_template('sign_up.html', msg="User already exists. Try a different email.")
 
-        # FIX 1: hash the password before storing
+       
         hashed_pw = generate_password_hash(password)
 
         cursor.execute(
@@ -72,7 +72,7 @@ def sign_up():
 
     return render_template('sign_up.html', msg='')
 
-# FIX 1 + 4: check hashed password, clear guest_name on login
+
 @app.route('/sign_in', methods=['GET', 'POST'])
 def sign_in():
     if request.method == 'GET':
@@ -84,7 +84,7 @@ def sign_in():
         password = request.form.get('password', '').strip()
 
         cursor = mysql.connection.cursor()
-        # FIX 1: fetch by email only, then verify hash in Python
+       
         cursor.execute(
             "SELECT id, name, role, password FROM users WHERE email=%s",
             (email,)
@@ -184,7 +184,6 @@ def view_post(post_id):
 
     return render_template('post_detail.html', post=post, comments=comments)
 
-# FIX 7: validate title and content length
 @app.route('/create_post', methods=['GET', 'POST'])
 def create_post():
     if 'user_id' not in session:
@@ -200,7 +199,7 @@ def create_post():
         category     = request.form.get('category')
         new_category = request.form.get('new_category', '').strip()
 
-        # FIX 7: validate title and content
+        
         if len(title) < 3:
             cursor.close()
             return render_template('post_create.html', categories=categories,
@@ -352,7 +351,7 @@ def dislike_post(post_id):
     cursor.close()
     return redirect(url_for('view_post', post_id=post_id))
 
-# FIX 7: validate comment not empty
+# FIX : validate comment not empty
 @app.route('/comment/<int:post_id>', methods=['POST'])
 def comment_post(post_id):
     if 'user_id' not in session:
@@ -371,7 +370,7 @@ def comment_post(post_id):
     cursor.close()
     return redirect(url_for('view_post', post_id=post_id))
 
-# FIX 3: contact form now has a route
+# FIX : contact form now has a route
 @app.route('/contact', methods=['POST'])
 def contact():
     # Future: save to DB or send email
@@ -385,5 +384,3 @@ def logout():
 # FIX 8: debug mode loaded from .env, defaults to False
 if __name__ == "__main__":
     app.run(debug=os.getenv('DEBUG', 'False').lower() == 'true')
-
-# placeholder to trigger read
